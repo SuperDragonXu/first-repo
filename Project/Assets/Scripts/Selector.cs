@@ -57,9 +57,14 @@ namespace UnityEngine.XR.Interaction.Toolkit
              #region 启用轮盘选中物体
             {
                 onTriggering = true;
+                #region 链接到UI转盘
+
                 canvasUI.SetActive(true);
                 canvasUI.GetComponentInChildren<CircleUI>().uiCount = itemRaycastAll.Count;
+                canvasUI.GetComponentInChildren<CircleUI>().itemRaycastAll = itemRaycastAll;
                 List<GameObject> buttonList = canvasUI.GetComponentInChildren<CircleUI>().buttonList;
+
+                #endregion
                 for (int i = 0; i < buttonList.Count; i++)
                 {
                     if (buttonList[i].gameObject.GetComponent<ButtonHighlight>().isHighlighted == true)

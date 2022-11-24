@@ -9,7 +9,7 @@ public class ButtonHighlight : Button
     protected override void Awake()
     {
         animator = GetComponent<Animator>();
-        GetComponent<Image>().alphaHitTestMinimumThreshold= 0.9f;
+        //GetComponent<Image>().alphaHitTestMinimumThreshold= 0.9f;
     }
     private void Update()
     {

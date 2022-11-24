@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+
 public class CircleUI : MonoBehaviour
 {
     public int uiCount; int pre_uiCount;
@@ -10,25 +12,30 @@ public class CircleUI : MonoBehaviour
     float pi=Mathf.PI;
     public GameObject buttonPrefab;
     public List<GameObject> buttonList;
+    public List<Item> itemRaycastAll;
 
-    public Vector2 getPoint(float angle)
+   // GameObject imageUI;
+
+    public Vector2 getPoint(float angle)    //传一个弧度制角
     {
         return new Vector2(Mathf.Cos(angle) * range,Mathf.Sin(angle) * range);
     }
+    
     public void GenerateButton(int uiButtonCount)
     {
         if (buttonList.Count > 0) { return;}
-        for(float i = 0; i < uiButtonCount; i++)
+        for(int i = 0; i < uiButtonCount; i++)
         {
-            print(i);
             GameObject button = Instantiate(buttonPrefab, transform.position, Quaternion.identity, parent: gameObject.transform);
-
+            float i_float = i;
             #region 旋转Button，分割对应的按钮(by Runmin Ji）
             RectTransform rectTransform = button.GetComponent<RectTransform>();
             button.GetComponent<Image>().fillAmount = 0.99f / uiButtonCount;
-            rectTransform.Rotate(0, 0, -150f + 360f * (i / uiButtonCount));
-            rectTransform.Translate(getPoint(2 * pi * ((i + 0.5f) / uiButtonCount)), Space.World);
+            rectTransform.Rotate(0, 0, -150f + 360f * (i_float / uiButtonCount));
+            Vector3 centerPointPos = getPoint(2 * pi * ((i_float + 0.5f) / uiButtonCount));   //环扇中心点
+            rectTransform.Translate(centerPointPos, Space.World);
             #endregion
+
 
             #region 环扇近似算法(by Zhengyang Zhu)
             float R0 = 28.9f;
@@ -48,7 +55,8 @@ public class CircleUI : MonoBehaviour
             }
             button.GetComponent<Image>().raycastPadding = new Vector4(left,0,50,top);
             #endregion
-
+            if(itemRaycastAll.Count> 0) 
+                button.transform.GetChild(0).gameObject.GetComponent<Image>().sprite =itemRaycastAll[i].tagImage;
             buttonList.Add(button);
         }
     }
@@ -71,3 +79,4 @@ public class CircleUI : MonoBehaviour
         }
     }
 }
+

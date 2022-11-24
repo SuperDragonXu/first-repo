@@ -104,10 +104,10 @@ Material:
     - _EMISSIONON: 0
     - _Fresnel_Power: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.904
+    - _Glossiness: 0.03
     - _GlossyReflections: 1
     - _Hover: 0
-    - _Metallic: 0
+    - _Metallic: 0.2
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Parallax: 0.02

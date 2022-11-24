@@ -27,8 +27,8 @@ public class CircleUI : MonoBehaviour
         for(int i = 0; i < uiButtonCount; i++)
         {
             GameObject button = Instantiate(buttonPrefab, transform.position, Quaternion.identity, parent: gameObject.transform);
-            float i_float = i;
             #region 旋转Button，分割对应的按钮(by Runmin Ji）
+            float i_float = i;
             RectTransform rectTransform = button.GetComponent<RectTransform>();
             button.GetComponent<Image>().fillAmount = 0.99f / uiButtonCount;
             rectTransform.Rotate(0, 0, -150f + 360f * (i_float / uiButtonCount));
@@ -55,6 +55,8 @@ public class CircleUI : MonoBehaviour
             }
             button.GetComponent<Image>().raycastPadding = new Vector4(left,0,50,top);
             #endregion
+
+            button.transform.localEulerAngles = new Vector3(0, 0, button.transform.localEulerAngles.z);
             if(itemRaycastAll.Count> 0) 
                 button.transform.GetChild(0).gameObject.GetComponent<Image>().sprite =itemRaycastAll[i].tagImage;
             buttonList.Add(button);

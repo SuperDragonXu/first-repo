@@ -13,7 +13,9 @@ public class SetPos : MonoBehaviour
         Vector2 localOffset= MathExtend.GetPoint_Reverse(theta, range);
         GetComponent<RectTransform>().localPosition=localOffset;
         transform.rotation= Quaternion.identity;    
-  
+        transform.localEulerAngles = new Vector3(0, 0, transform.localEulerAngles.z);
+            //Ðý×ª½ÃÕý
+
     }
 
 }

@@ -270,7 +270,7 @@ namespace UnityEngine.XR.Interaction.Toolkit
         {
             SetRenderMode.SetOpaque(item.itemObject);
             var material = item.itemObject.GetComponent<Renderer>().material;
-            material.color = Color.red;
+            //material.color = Color.red;
         }
         void ExitHover(Item item)
         {
@@ -282,7 +282,7 @@ namespace UnityEngine.XR.Interaction.Toolkit
         {
             var material= item.itemObject.GetComponent<Renderer>().material;
             SetRenderMode.SetTrans(item.itemObject);
-            material.color*=new Color(1f,1f,1f,  0.2f);
+            material.color*=new Color(1f,1f,1f,  0.1f);
 
         }
 

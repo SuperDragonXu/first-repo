@@ -84,9 +84,10 @@ namespace UnityEngine.XR.Interaction.Toolkit
 
             }
             #endregion
+            #region 轮盘选择中
             else if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue2) &&
                 triggerValue2 == 0 && hasTriggered == false && onTriggering == true)
-            #region 轮盘选择中
+                    //out + 变量类型 + 变量名完成变量的声明和传参过程
             {
                 //需要更新物体对应的高亮效果
                 itemRaycastAll[order].itemObject.transform.SetParent(gameObject.transform, true);

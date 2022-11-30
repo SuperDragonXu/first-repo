@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 663874797}
   - component: {fileID: 663874796}
   - component: {fileID: 9200862708300551363}
+  - component: {fileID: 8356276819283403326}
   m_Layer: 0
   m_Name: Right Grab Ray
   m_TagString: Untagged
@@ -387,9 +388,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50939586691a434399743f61b0b6e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveMode: 0
   inputDeviceType: 512
   controllerCharacteristics: 64
   itemRayCount: {fileID: 0}
+  canvasUI: {fileID: 0}
+--- !u!114 &8356276819283403326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663874795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5231fe3ba4ba514c8b97a849ef91e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftRay: {fileID: 0}
 --- !u!1 &422821670198265333
 GameObject:
   m_ObjectHideFlags: 0

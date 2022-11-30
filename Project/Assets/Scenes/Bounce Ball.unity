@@ -2850,7 +2850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &297690110
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12459,6 +12459,24 @@ Transform:
   m_Father: {fileID: 405553309}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1776226597 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4349424364414060663, guid: 6e0d780ff9bd1f5409fb90adedfd2137, type: 3}
+  m_PrefabInstance: {fileID: 9200862708300551361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1776226603
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776226597}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.005, y: 0.005, z: 1.005}
+  m_Center: {x: 0, y: -0.7, z: 0.5}
 --- !u!1 &1779280197
 GameObject:
   m_ObjectHideFlags: 0
@@ -16345,6 +16363,10 @@ PrefabInstance:
       propertyPath: canvasUI
       value: 
       objectReference: {fileID: 297690109}
+    - target: {fileID: 9200862708300551363, guid: 6e0d780ff9bd1f5409fb90adedfd2137, type: 3}
+      propertyPath: moveMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9200862708300551363, guid: 6e0d780ff9bd1f5409fb90adedfd2137, type: 3}
       propertyPath: itemRayCount
       value: 

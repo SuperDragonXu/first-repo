@@ -5,15 +5,13 @@ using UnityEngine.XR;
 using TMPro;
 namespace UnityEngine.XR.Interaction.Toolkit
 {
-    public class Selector : MonoBehaviour
+    public class Selector1 : MonoBehaviour
     {
-        [SerializeField]
-        public moveMode moveMode;
 
-        private int order=0;
+        private int order = 0;
         private InputDevice targetDevice;
         private bool hasSelected = false;
-        
+
         private Item selectedGameObject;
 
         [SerializeField]
@@ -23,19 +21,16 @@ namespace UnityEngine.XR.Interaction.Toolkit
         private List<Item> itemRaycastAll;
         public TextMeshProUGUI itemRayCount;
 
-        
-        public GameObject canvasUI;
-        private bool hasTriggered=false;
-        private bool onTriggering=false;
 
-        crossRayLocator crossLocator;
+        public GameObject canvasUI;
+        private bool hasTriggered = false;
+        private bool onTriggering = false;
+
         #region 初始化设备（by JiaLong Xu)
         void Start()
         {
             itemRaycastAll = new List<Item>();
             Initial();
-            crossLocator = GetComponent<crossRayLocator>();
-
         }
         void Initial()
         {
@@ -58,11 +53,10 @@ namespace UnityEngine.XR.Interaction.Toolkit
             #region 轮盘部分(by Zhengyang Zhu)
 
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue)
-                && triggerValue > 0.9f && hasTriggered == false && itemRaycastAll.Count>1)
-             #region 启用轮盘选中物体
+                && triggerValue > 0.9f && hasTriggered == false && itemRaycastAll.Count > 1)
+            #region 启用轮盘选中物体
             {
                 onTriggering = true;
-
                 #region 链接到UI转盘
 
                 canvasUI.SetActive(true);
@@ -93,21 +87,13 @@ namespace UnityEngine.XR.Interaction.Toolkit
             #region 轮盘选择中
             else if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue2) &&
                 triggerValue2 == 0 && hasTriggered == false && onTriggering == true)
-                    //out + 变量类型 + 变量名完成变量的声明和传参过程
+            //out + 变量类型 + 变量名完成变量的声明和传参过程
             {
-                ////需要更新物体对应的高亮效果
-                //if (moveMode == moveMode.crossRay) //如果移动模式是射线交叉移动
-                //{
-                //    selectedGameObject = itemRaycastAll[order];
-                //    crossLocator.crossSelect(selectedGameObject.itemObject);    //利用射线确定选中物体的位置
-                //}
-                //else                            //不使用射线交叉选择
-                //{
-                    itemRaycastAll[order].itemObject.transform.SetParent(gameObject.transform, true);
-                    itemRaycastAll[order].itemObject.GetComponent<Rigidbody>().useGravity = false;
-                    itemRaycastAll[0].itemObject.GetComponent<Rigidbody>().isKinematic = true;
-                    selectedGameObject = itemRaycastAll[order];
-                //}
+                //需要更新物体对应的高亮效果
+                itemRaycastAll[order].itemObject.transform.SetParent(gameObject.transform, true);
+                itemRaycastAll[order].itemObject.GetComponent<Rigidbody>().useGravity = false;
+                itemRaycastAll[0].itemObject.GetComponent<Rigidbody>().isKinematic = true;
+                selectedGameObject = itemRaycastAll[order];
 
                 ExitHover(selectedGameObject);
                 canvasUI.SetActive(false);
@@ -123,11 +109,12 @@ namespace UnityEngine.XR.Interaction.Toolkit
                 //TODO:Move
 
                 MoveSelectedGameobject(itemRaycastAll[order].gameObject);
+
                 GetComponent<XRInteractorLineVisual>().enabled = false;
             }
             #endregion
             else if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue4)
-                && triggerValue4<0.5f &&triggerValue4 > 0.1f && hasTriggered == true )
+                && triggerValue4 < 0.5f && triggerValue4 > 0.1f && hasTriggered == true)
             #region 轻轻触及Trigger松手，接触握持状态
             {
                 GetComponent<XRInteractorLineVisual>().enabled = true;
@@ -144,30 +131,22 @@ namespace UnityEngine.XR.Interaction.Toolkit
             #endregion
             #region 手柄旋钮部分(by Zhengyang Zhu,Jialong Xu)
             else if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue5)
-                && triggerValue5 ==0 && hasTriggered==false)
+                && triggerValue5 == 0 && hasTriggered == false)
             {
-
                 //在没有启用UI轮盘的情况下，需要更新itemRaycastAll数组。
                 #region 创建射线检测项目数组，排序，并显示项目数量（by Jialong Xu)
-
-                if (!hasSelected) 
-                {
-                    RaycastHit[] hits = Physics.SphereCastAll(transform.position, 0.25f, transform.forward,
+                RaycastHit[] hits = Physics.SphereCastAll(transform.position, 0.25f, transform.forward,
                     maxDistance: Mathf.Infinity, layerMask: LayerMask.GetMask("Grab"));
-                    //只检测Grab层的物体
-                    bubbleSortHits(ref hits);
+                //只检测Grab层的物体
+                bubbleSortHits(ref hits);
+                itemRaycastAll.Clear();
 
-                    itemRaycastAll.Clear();
-
-                    for (int i = 0; i < hits.Length; i++)
-                    {
-                        Item dummy = hits[i].transform.gameObject.GetComponent<Item>();
-                        itemRaycastAll.Add(dummy);
-                    }
-                    itemRayCount.text = (order + 1).ToString() + "/" + itemRaycastAll.Count.ToString();
-
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    Item dummy = hits[i].transform.gameObject.GetComponent<Item>();
+                    itemRaycastAll.Add(dummy);
                 }
-
+                itemRayCount.text = (order + 1).ToString() + "/" + itemRaycastAll.Count.ToString();
                 #endregion
                 if (itemRaycastAll.Count > 0 && itemRaycastAll.Count <= 1)
                 {
@@ -178,10 +157,11 @@ namespace UnityEngine.XR.Interaction.Toolkit
                     {
                         if (gripValue > 0f)
                         {   //握住
-                            if (hasSelected) {
-                                //TODO:这里是握住了可以移动
+                            if (hasSelected)
+                            {
+                                //TODO:Move
+                                MoveSelectedGameobject(itemRaycastAll[0].gameObject);
 
-                                MoveSelectedGameobject(itemRaycastAll[order].gameObject);
                             }
                             else
                             {
@@ -232,10 +212,12 @@ namespace UnityEngine.XR.Interaction.Toolkit
                     {
                         if (gripValue > 0f)
                         {   //握住
-                            if (hasSelected) {
+                            if (hasSelected)
+                            {
                                 //TODO:Move
-
                                 MoveSelectedGameobject(itemRaycastAll[order].gameObject);
+
+
                             }
                             else
                             {
@@ -309,14 +291,14 @@ namespace UnityEngine.XR.Interaction.Toolkit
         void ExitHover(Item item)
         {
             var material = item.itemObject.GetComponent<Renderer>().material;
-           //SetRenderMode.SetOpaque(item.itemObject);
+            //SetRenderMode.SetOpaque(item.itemObject);
             material.color = item.originalColor;
         }
         void EnterHide(Item item)
         {
-            var material= item.itemObject.GetComponent<Renderer>().material;
+            var material = item.itemObject.GetComponent<Renderer>().material;
             SetRenderMode.SetTrans(item.itemObject);
-            material.color*=new Color(1f,1f,1f,  0.1f);
+            material.color *= new Color(1f, 1f, 1f, 0.1f);
 
         }
 

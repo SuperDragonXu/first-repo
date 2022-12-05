@@ -121,16 +121,27 @@ namespace UnityEngine.XR.Interaction.Toolkit
             #region 握持物体状态
             {
                 //TODO:Move
+                //需要更新物体对应的高亮效果
+                if (moveMode == moveMode.crossRay) //如果移动模式是射线交叉移动
+                {
+                    selectedGameObject = itemRaycastAll[order];
+                    crossLocator.crossSelect(selectedGameObject.itemObject);    //利用射线确定选中物体的位置
+                }
+                else                            //不使用射线交叉选择
+                {
+                    MoveSelectedGameobject(itemRaycastAll[order].gameObject);
+                    GetComponent<XRInteractorLineVisual>().enabled = false;
 
-                MoveSelectedGameobject(itemRaycastAll[order].gameObject);
-                GetComponent<XRInteractorLineVisual>().enabled = false;
+                }
             }
+           
             #endregion
             else if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue4)
                 && triggerValue4<0.5f &&triggerValue4 > 0.1f && hasTriggered == true )
             #region 轻轻触及Trigger松手，接触握持状态
             {
-                GetComponent<XRInteractorLineVisual>().enabled = true;
+               
+                 GetComponent<XRInteractorLineVisual>().enabled = true;
 
                 selectedGameObject.itemObject.transform.SetParent(null, true);
                 selectedGameObject.itemObject.GetComponent<Rigidbody>().useGravity = true;
